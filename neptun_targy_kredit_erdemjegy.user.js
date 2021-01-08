@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Neptun - tárgy/kredit/érdemjegy
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @downloadURL  https://github.com/kovapatrik/neptun-targy-kredit-erdemjegy/raw/main/neptun_targy_kredit_erdemjegy.user.js
 // @description  try to take over the world!
 // @author       kovapatrik
-// @match        https://hallgato.neptun.elte.hu/main.aspx?*ctrl=0206*
+// @include      https://hallgato*.neptun.elte.hu/main.aspx?*ctrl=0206
 // @grant        none
 // ==/UserScript==
 
