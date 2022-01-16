@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Neptun - tárgy/kredit/érdemjegy
 // @namespace    http://tampermonkey.net/
-// @version      0.1.4
+// @version      0.1.5
 // @downloadURL  https://github.com/kovapatrik/neptun-targy-kredit-erdemjegy/raw/main/neptun_targy_kredit_erdemjegy.user.js
 // @description  try to take over the world!
 // @author       kovapatrik
@@ -35,6 +35,7 @@
         let output = '';
         for (let i = 0; i < table.rows.length; i++) {
             let row = table.rows[i];
+            let code = row.cells[cols.findIndex(v=> v.includes('Tárgykód')) + 1].innerText;
             let name = row.cells[cols.findIndex(v=> v.includes('Tárgy címe')) + 1].innerText.split(',')[0];
             let credit = row.cells[cols.findIndex(v=> v.includes('Kr.')) + 1].innerText;
             let grade = row.cells[cols.findIndex(v=> v.includes('Jegyek')) + 1].innerText.split('\n');
@@ -56,7 +57,7 @@
                 default:
                     grade = '';
             }
-            output += name + ';' + credit + ';' + grade + '\n'
+            output += code + ';' + name + ';' + credit + ';' + grade + '\n'
         }
         console.log(output);
     }
