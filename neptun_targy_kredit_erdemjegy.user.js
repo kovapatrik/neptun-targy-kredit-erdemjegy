@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Neptun - tárgy/kredit/érdemjegy
 // @namespace    http://tampermonkey.net/
-// @version      0.1.3
+// @version      0.1.4
 // @downloadURL  https://github.com/kovapatrik/neptun-targy-kredit-erdemjegy/raw/main/neptun_targy_kredit_erdemjegy.user.js
 // @description  try to take over the world!
 // @author       kovapatrik
@@ -25,20 +25,19 @@
 
     header.appendChild(tr);
 
-
     btn.onclick = (e) => getTable(e);
 
     function getTable(e) {
         e.preventDefault();
         let table = document.getElementById('h_markbook_gridIndexEntry_bodytable').tBodies[0];
-        let cols  = document.getElementById('h_markbook_gridIndexEntry_bodytable').tHead.filter(v=> v !== '\t' && v !== '');
-
+        let cols = document.getElementById('h_markbook_gridIndexEntry_bodytable').getElementsByTagName('thead')[0].innerText.split('\n');
+        cols = cols.filter(v=> v !== '\t' && v !== '');
         let output = '';
         for (let i = 0; i < table.rows.length; i++) {
             let row = table.rows[i];
-            let name = row.cells[cols.findIndex(v=> v.includes('Tárgy címe'))].innerText.split(',')[0];
-            let credit = row.cells[cols.findIndex(v=> v.includes('Kr.'))].innerText;
-            let grade = row.cells[cols.findIndex(v=> v.includes('Jegyek'))].innerText.split('\n');
+            let name = row.cells[cols.findIndex(v=> v.includes('Tárgy címe')) + 1].innerText.split(',')[0];
+            let credit = row.cells[cols.findIndex(v=> v.includes('Kr.')) + 1].innerText;
+            let grade = row.cells[cols.findIndex(v=> v.includes('Jegyek')) + 1].innerText.split('\n');
             grade.pop();
             grade = grade[grade.length - 3];
             switch (grade) {
