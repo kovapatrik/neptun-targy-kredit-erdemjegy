@@ -31,12 +31,14 @@
     function getTable(e) {
         e.preventDefault();
         let table = document.getElementById('h_markbook_gridIndexEntry_bodytable').tBodies[0];
+        let cols  = document.getElementById('h_markbook_gridIndexEntry_bodytable').tHead.filter(v=> v !== '\t' && v !== '');
+
         let output = '';
         for (let i = 0; i < table.rows.length; i++) {
             let row = table.rows[i];
-            let name = row.cells[2].innerText.split(',')[0];
-            let credit = row.cells[3].innerText;
-            let grade = row.cells[9].innerText.split('\n');
+            let name = row.cells[cols.findIndex(v=> v.includes('Tárgy címe'))].innerText.split(',')[0];
+            let credit = row.cells[cols.findIndex(v=> v.includes('Kr.'))].innerText;
+            let grade = row.cells[cols.findIndex(v=> v.includes('Jegyek'))].innerText.split('\n');
             grade.pop();
             grade = grade[grade.length - 3];
             switch (grade) {
